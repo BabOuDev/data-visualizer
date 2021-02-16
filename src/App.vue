@@ -1,26 +1,35 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <img class="logo" alt="Vue logo" src="./assets/logo.png" />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data () {
+    return {
+      people: []
+    }
+  },
+  methods: {
+    retrievePeople () {
+      return fetch('https://run.mocky.io/v3/70e5b0ad-7112-41c5-853e-b382a39e65b7')
+    }
+  },
+  created () {
+    this.retrievePeople()
+      .then((data) => data.json())
+      .then((data) => { this.people = data.people })
+      .catch((e) => console.log('Error while retrieving data!', e))
   }
 }
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+.logo{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 60px;
 }
 </style>
