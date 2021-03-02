@@ -1,8 +1,25 @@
 <template>
   <h1>Data Vizualizer</h1>
 
-  <label for="search">Search: </label>
-  <input id="search" class="search-input" type="text" v-model="search" placeholder="Search..."/>
+  <div class="search-filter-bar">
+
+    <div>
+      <label>Filters: </label>
+      <Switch id="filters" v-model="enableFilter" />
+      <br/>
+      <Filters v-if="enableFilter" v-model="filters" :columns="columnsToFilterOn" />
+    </div>
+
+    <br/>
+
+    <div>
+      <label for="search">Search: </label>
+      <input id="search" class="search-input" type="text" v-model="search" placeholder="Search..."/>
+    </div>
+
+    <br/>
+
+  </div>
 
   <DataTable :data="filteredPeople" />
 
@@ -10,17 +27,28 @@
 
 <script>
   import DataTable from '@/components/DataTable.vue';
+  import Filters from '@/components/Filters.vue';
+  import Switch from '@/components/Switch.vue';
 
-  import searchMixin from '@/mixins/Search.mixin';
+  import filteringMixin from '@/mixins/Filtering.mixin';
+  import schemaMixin from '@/mixins/Schema.mixin';
 
   export default {
     name: 'MainView',
     components: {
       DataTable,
-    // Filters,
-    // Switch
+      Filters,
+      Switch,
     },
-    mixins: [searchMixin('people', 'search')],
+    mixins: [
+      filteringMixin('people', 'search', 'filters'),
+      schemaMixin,
+    ],
+    data() {
+      return {
+        enableFilter: false,
+      };
+    },
 
     props: {
       people: Array,
@@ -29,5 +57,16 @@
 </script>
 
 <style scoped>
+
+.search-filter-bar{
+  font-size: 20px;
+}
+
+.search-input {
+  width: 300px;
+  font-size: 20px;
+  margin-right:20px;
+  border: 1px solid #42b883;
+}
 
 </style>

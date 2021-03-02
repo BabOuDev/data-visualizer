@@ -27,7 +27,10 @@
       </tr>
     </tbody>
   </table>
-  <Pagination :total="totalNumberOfRows" :limit="pageLimit" :offset="pageOffset" @pageChanged="changePage"/>
+
+
+  <label class="info-label" v-if="rowsForCurrentPage.length === 0">No data for current filters</label>
+  <Pagination v-else-if="totalNumberOfRows > pageLimit" :total="totalNumberOfRows" :limit="pageLimit" :offset="pageOffset" @pageChanged="changePage"/>
 </template>
 
 <script>
@@ -90,6 +93,14 @@
     padding-bottom: 12px;
     background-color: #35495e;
     color: white;
+  }
+
+  .info-label {
+    display:block;
+    margin: 10px;
+    width: 100%;
+    font-size:20px;
+    text-align:center;
   }
 
 </style>
