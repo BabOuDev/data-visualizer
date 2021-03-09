@@ -21,7 +21,7 @@
 
   </div>
 
-  <DataTable :data="filteredPeople" />
+  <DataTable :rows="filteredPeople" :columns="columnsToDisplay" @row-selected="openPanel($event)"/>
 
 </template>
 
@@ -52,6 +52,12 @@
 
     props: {
       people: Array,
+    },
+
+    methods: {
+      openPanel(row) {
+        console.log('openPanel', row);
+      },
     },
   };
 </script>

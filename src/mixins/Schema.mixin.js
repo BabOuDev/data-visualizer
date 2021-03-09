@@ -1,11 +1,13 @@
+import Tools from '@/services/Tools';
+
 export default {
   data() {
     return {
       schema: [
         {
           label: 'Name',
-          paths: ['firstname', 'lastname'],
-          value: (firstname, lastname)=>firstname + ' ' + lastname,
+          path: ['firstname', 'lastname'],
+          renderer: (row, values)=>values[0] + ' ' + values[1],
           types: ['text', 'text'],
           computed: true,
           display: true,
@@ -24,6 +26,7 @@ export default {
           label: 'Gender',
           path: 'gender',
           type: 'select',
+          renderer: (row, values)=>(values[0] === 'Female' ? '♀ ' : '♂ ') + values[0],
           options: ['Male', 'Female'],
           display: true,
           filter: true,
@@ -48,15 +51,16 @@ export default {
           display: true,
         },
         {
-          label: 'Favorite Color',
+          label: 'Fav. Color',
           path: 'preferences.favorite_color',
           type: 'select',
+          renderer: (row, values)=>'<span class="color-square" style="'+this.getColorStyle(values[0])+'"></span>' + values[0],
           options: ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Purple'],
           display: true,
           filter: true,
         },
         {
-          label: 'Favorite Fruit',
+          label: 'Fav. Fruit',
           path: 'preferences.favorite_fruit',
           type: 'select',
           options: ['Apple', 'Pineapple', 'Pear', 'Strawberry', 'Orange', 'Mango'],
@@ -64,13 +68,13 @@ export default {
           filter: true,
         },
         {
-          label: 'Favorite Movie',
+          label: 'Fav. Movie',
           path: 'preferences.favorite_movie',
           type: 'text',
           display: true,
         },
         {
-          label: 'Favorite Pet',
+          label: 'Fav. Pet',
           path: 'preferences.favorite_pet',
           type: 'select',
           options: ['Cat', 'Dog', 'Bird', 'Rat'],
@@ -108,6 +112,23 @@ export default {
   computed: {
     columnsToFilterOn() {
       return this.schema.filter((c)=>c.filter);
+    },
+    columnsToDisplay() {
+      return this.schema.filter((c)=>c.display).map((c)=>({
+        ...c,
+        renderer: c.renderer || ((r)=>Tools.findValueAtPath(r, c.path)),
+        path: c.path instanceof Array ? c.path : [c.path],
+      }));
+    },
+  },
+  methods: {
+    getColorStyle(color) {
+      return ''+
+        'background-color:'+ color +'; ' +
+      'width: 10px; ' +
+        'height: 10px; ' +
+        'display: inline-block; ' +
+        'margin: 0 10px 0 0; ';
     },
   },
 };

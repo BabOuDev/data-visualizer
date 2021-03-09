@@ -1,41 +1,28 @@
 <template>
+
   <table>
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Gender</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Country</th>
-        <th>Fav. Color</th>
-        <th>Fav. Fruit</th>
-        <th>Fav. Movie</th>
-        <th>Fav. Pet</th>
+        <th v-for="col in columns" :key="col.label">{{ col.label }}</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="p in rowsForCurrentPage" v-bind:key="p.id">
-        <td>{{p.firstname}} {{p.lastname}}</td>
-        <td>{{p.gender}}</td>
-        <td>{{p.contact.email}}</td>
-        <td>{{p.contact.phone}}</td>
-        <td>{{p.contact.country}}</td>
-        <td>{{p.preferences.favorite_color}}</td>
-        <td>{{p.preferences.favorite_fruit}}</td>
-        <td>{{p.preferences.favorite_movie}}</td>
-        <td>{{p.preferences.favorite_pet}}</td>
+      <tr v-for="row in rowsForCurrentPage" v-bind:key="row.id" @click="$emit('row-selected', row)">
+        <td v-for="col in columns" :key="col.label" v-html="col.renderer(row, col.path.map((p) => findValueAtPath(row, p)))"></td>
       </tr>
     </tbody>
   </table>
 
-
   <label class="info-label" v-if="rowsForCurrentPage.length === 0">No data for current filters</label>
+
   <Pagination v-else-if="totalNumberOfRows > pageLimit" :total="totalNumberOfRows" :limit="pageLimit" :offset="pageOffset" @pageChanged="changePage"/>
+
 </template>
 
 <script>
   import Pagination from '@/components/Pagination.vue';
 
+  import Tools from '@/services/Tools';
 
   export default {
     name: 'DataTable',
@@ -43,8 +30,12 @@
       Pagination,
     },
     props: {
-      data: Array,
+      rows: Array,
+      columns: Array,
     },
+    emits: [
+      'row-selected',
+    ],
     data() {
       return {
         // Nombre d'éléments dans une page
@@ -56,17 +47,18 @@
     computed: {
       // Nombre total d'éléments
       totalNumberOfRows() {
-        return this.data.length;
+        return this.rows.length;
       },
       // Les données de la page courante
       rowsForCurrentPage() {
-        return this.data.slice(this.pageOffset, this.pageOffset + this.pageLimit);
+        return this.rows.slice(this.pageOffset, this.pageOffset + this.pageLimit);
       },
     },
     methods: {
       changePage(page) {
         this.pageOffset = page*this.pageLimit;
       },
+      findValueAtPath: Tools.findValueAtPath,
     },
   };
 </script>
@@ -84,9 +76,17 @@
     padding: 8px;
   }
 
-  table tr:nth-child(even){background-color: lightgray;}
+  table tr:nth-child(even){
+    background-color: lightgray;
+  }
 
-  table tr:hover {background-color:  #42b883;}
+  table tr {
+    cursor: pointer;
+  }
+
+  table tr:hover {
+    background-color:  #42b883;
+  }
 
   table th {
     padding-top: 12px;
