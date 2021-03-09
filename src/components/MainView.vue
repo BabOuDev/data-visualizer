@@ -23,12 +23,15 @@
 
   <DataTable :rows="filteredPeople" :columns="columnsToDisplay" @row-selected="openPanel($event)"/>
 
+  <SidePanel v-if="panelVisible" :row="rowToEdit" :columns="columnsToEdit" @save-row="saveRow($event)" @cancel="panelVisible = false"/>
+
 </template>
 
 <script>
-  import DataTable from '@/components/DataTable.vue';
-  import Filters from '@/components/Filters.vue';
   import Switch from '@/components/Switch.vue';
+  import Filters from '@/components/Filters.vue';
+  import DataTable from '@/components/DataTable.vue';
+  import SidePanel from '@/components/SidePanel';
 
   import filteringMixin from '@/mixins/Filtering.mixin';
   import schemaMixin from '@/mixins/Schema.mixin';
@@ -36,27 +39,39 @@
   export default {
     name: 'MainView',
     components: {
+      SidePanel,
       DataTable,
       Filters,
       Switch,
     },
     mixins: [
-      filteringMixin('people', 'search', 'filters'),
+      filteringMixin('modelValue', 'search', 'filters'),
       schemaMixin,
     ],
     data() {
       return {
         enableFilter: false,
+        panelVisible: false,
+        rowToEdit: {},
       };
     },
 
     props: {
-      people: Array,
+      modelValue: Array,
     },
+
+    emits: ['update:modelValue'],
 
     methods: {
       openPanel(row) {
-        console.log('openPanel', row);
+        this.panelVisible = true;
+        this.rowToEdit = row;
+      },
+      saveRow(rowItem) {
+        const list = this.modelValue;
+        list[list.findIndex((i)=>i.id === rowItem.id)] = rowItem;
+        this.$emit('update:modelValue', list);
+        this.panelVisible = false;
       },
     },
   };

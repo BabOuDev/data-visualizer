@@ -16,11 +16,13 @@ export default {
           label: 'Firstname',
           path: 'firstname',
           type: 'text',
+          edit: true,
         },
         {
           label: 'Lastname',
           path: 'lastname',
           type: 'text',
+          edit: true,
         },
         {
           label: 'Gender',
@@ -30,12 +32,14 @@ export default {
           options: ['Male', 'Female'],
           display: true,
           filter: true,
+          edit: true,
         },
         {
           label: 'Email',
           path: 'contact.email',
           type: 'text',
           display: true,
+          edit: true,
         },
         {
           label: 'Phone Number',
@@ -43,12 +47,14 @@ export default {
           type: 'text',
           pattern: '[0-9]{5}[-][0-9]{7}[-][0-9]{1}',
           display: true,
+          edit: true,
         },
         {
           label: 'Country',
           path: 'contact.country',
           type: 'text',
           display: true,
+          edit: true,
         },
         {
           label: 'Fav. Color',
@@ -58,6 +64,7 @@ export default {
           options: ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Purple'],
           display: true,
           filter: true,
+          edit: true,
         },
         {
           label: 'Fav. Fruit',
@@ -66,12 +73,14 @@ export default {
           options: ['Apple', 'Pineapple', 'Pear', 'Strawberry', 'Orange', 'Mango'],
           display: true,
           filter: true,
+          edit: true,
         },
         {
           label: 'Fav. Movie',
           path: 'preferences.favorite_movie',
           type: 'text',
           display: true,
+          edit: true,
         },
         {
           label: 'Fav. Pet',
@@ -80,16 +89,19 @@ export default {
           options: ['Cat', 'Dog', 'Bird', 'Rat'],
           display: true,
           filter: true,
+          edit: true,
         },
         {
           label: 'Address',
           path: 'contact.address',
           type: 'text',
+          edit: true,
         },
         {
           label: 'City',
           path: 'contact.city',
           type: 'text',
+          edit: true,
         },
         {
           label: 'Longitude',
@@ -97,6 +109,7 @@ export default {
           type: 'number',
           min: -180,
           max: 180,
+          edit: true,
         },
         {
           label: 'Latitude',
@@ -104,6 +117,7 @@ export default {
           type: 'number',
           min: -180,
           max: 180,
+          edit: true,
         },
 
       ],
@@ -112,6 +126,9 @@ export default {
   computed: {
     columnsToFilterOn() {
       return this.schema.filter((c)=>c.filter);
+    },
+    columnsToEdit() {
+      return this.schema.filter((c)=>c.edit);
     },
     columnsToDisplay() {
       return this.schema.filter((c)=>c.display).map((c)=>({

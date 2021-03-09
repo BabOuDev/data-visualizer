@@ -1,5 +1,5 @@
 <template>
-  <MainView :people="people"/>
+  <MainView v-model="people"/>
 </template>
 
 <script>

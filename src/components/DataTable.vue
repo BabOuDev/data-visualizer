@@ -60,6 +60,14 @@
       },
       findValueAtPath: Tools.findValueAtPath,
     },
+    watch: {
+      rows: {
+        handler() {
+          this.pageOffset = 0;
+        },
+        deep: true,
+      },
+    },
   };
 </script>
 
