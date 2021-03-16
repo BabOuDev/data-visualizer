@@ -3,7 +3,13 @@
   <table>
     <thead>
       <tr>
-        <th v-for="col in columns" :key="col.label">{{ col.label }}</th>
+        <th v-for="col in columns" :key="col.label" :width="col.width + 'px'">
+          {{ col.label }}
+          <div class="sorting-caret" @click="sortBy(col)">
+            <span class="caret sort-by-asc" :class="{active: sortingColumn === col.label && sortingAsc}"></span>
+            <span class="caret sort-by-desc" :class="{active: sortingColumn === col.label && !sortingAsc}"></span>
+          </div>
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -23,12 +29,16 @@
   import Pagination from '@/components/Pagination.vue';
 
   import Tools from '@/services/Tools';
+  import SortingMixin from '@/mixins/Sorting.mixin';
 
   export default {
     name: 'DataTable',
     components: {
       Pagination,
     },
+    mixins: [
+      SortingMixin,
+    ],
     props: {
       rows: Array,
       columns: Array,
@@ -51,7 +61,7 @@
       },
       // Les données de la page courante
       rowsForCurrentPage() {
-        return this.rows.slice(this.pageOffset, this.pageOffset + this.pageLimit);
+        return this.sortedPeople.slice(this.pageOffset, this.pageOffset + this.pageLimit);
       },
     },
     methods: {
@@ -88,7 +98,7 @@
     background-color: lightgray;
   }
 
-  table tr {
+  table tbody tr {
     cursor: pointer;
   }
 
@@ -111,4 +121,48 @@
     text-align:center;
   }
 
+  table th {
+    position:relative;
+  }
+
+  .sorting-caret{
+    position:absolute;
+    right: 3px;
+    top:0;
+    height: 34px;
+    width: 15px;
+    line-height: 0;
+    padding-top: 7px;
+    cursor: pointer;
+  }
+
+  .sort-by-asc {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border: solid 5px transparent;
+    margin: 4px 4px 0 3px;
+    background: transparent;
+    border-bottom: solid 7px #42b883;
+    border-top-width: 0;
+  }
+
+  .caret:not(.active){
+    opacity:0.5;
+  }
+
+  .caret.active{
+    opacity:1;
+  }
+
+  .sort-by-desc {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border: solid 5px transparent;
+    margin: 4px 4px 0 3px;
+    background: transparent;
+    border-top: solid 7px #42b883;
+    border-bottom-width: 0;
+  }
 </style>

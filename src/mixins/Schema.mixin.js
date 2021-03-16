@@ -11,6 +11,7 @@ export default {
           types: ['text', 'text'],
           computed: true,
           display: true,
+          width: 200,
         },
         {
           label: 'Firstname',
@@ -31,6 +32,7 @@ export default {
           renderer: (row, values)=>(values[0] === 'Female' ? '♀ ' : '♂ ') + values[0],
           options: ['Male', 'Female'],
           display: true,
+          width: 100,
           filter: true,
           edit: true,
         },
@@ -39,6 +41,7 @@ export default {
           path: 'contact.email',
           type: 'text',
           display: true,
+          width: 250,
           edit: true,
         },
         {
@@ -47,6 +50,7 @@ export default {
           type: 'text',
           pattern: '[0-9]{5}[-][0-9]{7}[-][0-9]{1}',
           display: true,
+          width: 160,
           edit: true,
         },
         {
@@ -54,6 +58,7 @@ export default {
           path: 'contact.country',
           type: 'text',
           display: true,
+          width: 160,
           edit: true,
         },
         {
@@ -63,6 +68,7 @@ export default {
           renderer: (row, values)=>'<span class="color-square" style="'+this.getColorStyle(values[0])+'"></span>' + values[0],
           options: ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Purple'],
           display: true,
+          width: 100,
           filter: true,
           edit: true,
         },
@@ -72,6 +78,7 @@ export default {
           type: 'select',
           options: ['Apple', 'Pineapple', 'Pear', 'Strawberry', 'Orange', 'Mango'],
           display: true,
+          width: 100,
           filter: true,
           edit: true,
         },
@@ -88,6 +95,7 @@ export default {
           type: 'select',
           options: ['Cat', 'Dog', 'Bird', 'Rat'],
           display: true,
+          width: 115,
           filter: true,
           edit: true,
         },
@@ -142,7 +150,7 @@ export default {
     getColorStyle(color) {
       return ''+
         'background-color:'+ color +'; ' +
-      'width: 10px; ' +
+        'width: 10px; ' +
         'height: 10px; ' +
         'display: inline-block; ' +
         'margin: 0 10px 0 0; ';
