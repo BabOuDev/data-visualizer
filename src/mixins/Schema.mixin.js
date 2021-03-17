@@ -35,6 +35,7 @@ export default {
           width: 100,
           filter: true,
           edit: true,
+          chart: true,
         },
         {
           label: 'Email',
@@ -71,6 +72,7 @@ export default {
           width: 100,
           filter: true,
           edit: true,
+          chart: true,
         },
         {
           label: 'Fav. Fruit',
@@ -81,6 +83,7 @@ export default {
           width: 100,
           filter: true,
           edit: true,
+          chart: true,
         },
         {
           label: 'Fav. Movie',
@@ -98,6 +101,7 @@ export default {
           width: 115,
           filter: true,
           edit: true,
+          chart: true,
         },
         {
           label: 'Address',
@@ -144,6 +148,9 @@ export default {
         renderer: c.renderer || ((r)=>Tools.findValueAtPath(r, c.path)),
         path: c.path instanceof Array ? c.path : [c.path],
       }));
+    },
+    columnsToChart() {
+      return this.schema.filter((c)=>c.chart);
     },
   },
   methods: {
