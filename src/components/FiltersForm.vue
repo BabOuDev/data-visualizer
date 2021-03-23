@@ -1,25 +1,29 @@
 <template>
   <div class="filter-container">
-    <label for="column">Column </label>
-    <select id="column" class="column-input" v-model="filterColumn" placeholder="Column" @change="updateColumn">
-      <option v-for="col in columns" :key="col.path" :value="col">{{ col.label }}</option>
-    </select>
-    <label for="value"> equals </label>
-    <select id="value" class="column-input" v-model="filterValue" placeholder="Value" :disabled="!filterColumn.options.length">
-      <option v-for="opt in filterColumn.options" :key="opt">{{ opt }}</option>
-    </select>
-    <button class="add-button" @click="addFilter" :disabled="!filterValue">Add Filter</button>
-  </div>
+    <div class="filter-form">
+      <label for="column">Column </label>
+      <select id="column" class="column-input" v-model="filterColumn" placeholder="Column" @change="updateColumn">
+        <option v-for="col in columns" :key="col.path" :value="col">{{ col.label }}</option>
+      </select>
+      <label for="value"> equals </label>
+      <select id="value" class="column-input" v-model="filterValue" placeholder="Value" :disabled="!filterColumn.options.length">
+        <option v-for="opt in filterColumn.options" :key="opt">{{ opt }}</option>
+      </select>
+      <button class="add-button" @click="addFilter" :disabled="!filterValue">Add Filter</button>
+      <button @click="$emit('resetFilters')" :disabled="!value.length">Reset Filters</button>
+    </div>
 
+    <button class="export" @click="$emit('export')">Export to JSON</button>
 
-  <div class="filter-list" v-if="value.length">
-    <span v-for="(filter, index) in value" :key="index">
-      <label class="filter-label">
-        {{filter.column}}: {{filter.values.join(' or ')}}
-        <span class="remove-button" @click="removeFilter(index)">x</span>
-      </label>
-      <span v-if="index < value.length-1">and</span>
-    </span>
+    <div class="filter-list" v-if="value.length">
+      <span v-for="(filter, index) in value" :key="index">
+        <label class="filter-label">
+          {{filter.column}}: {{filter.values.join(' or ')}}
+          <span class="remove-button" @click="removeFilter(index)">x</span>
+        </label>
+        <span v-if="index < value.length-1">and</span>
+      </span>
+    </div>
   </div>
 </template>
 
@@ -29,7 +33,7 @@
     name: 'FilterItem',
 
     props: ['modelValue', 'columns'],
-    emits: ['update:modelValue'],
+    emits: ['update:modelValue', 'export'],
 
     data() {
       return {
@@ -70,8 +74,17 @@
 
 <style scoped>
 
+.filter-form {
+  display:inline-block;
+  margin-right: 20px;
+}
+.filter-list {
+  display:inline-block;
+  user-select: none;
+}
+
 .filter-label{
-  background-color: #35495e;
+  background-color: var(--color-2);
   color:white;
   padding: 2px 28px 2px 18px;
   margin: 2px 5px;
@@ -98,13 +111,17 @@
   cursor: pointer;
 }
 
-.add-button{
+button {
   font-size: 20px;
   margin-left:10px;
 }
 
+.export {
+  float:right;
+}
+
 .add-button:not([disabled]){
-  background-color: #42b883;
+  background-color: var(--color-1);
   color:white;
 }
 
@@ -113,7 +130,7 @@
   font-size: 20px;
   margin-bottom:10px;
   padding: 2px 0px 1px;
-  border: 1px solid #42b883;
+  border: 1px solid var(--color-1);
   background-color:white;
 }
 
