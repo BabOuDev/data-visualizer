@@ -15,6 +15,11 @@ npm run serve
 npm run build
 ```
 
+### Compiles and runs project for production
+```
+npm run build && cd dist && npm install -g static-server && static-server
+```
+
 ### Run your unit tests
 ```
 npm run test:unit
