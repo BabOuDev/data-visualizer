@@ -1,25 +1,31 @@
-+<template>
-  <div class="bar-container">
-    <Legend :keys="keys" :colors="colors" @updateFilterFromLegend="$emit('updateFilter', {col:col, value:$event})"/>
-    <div class="bar-background"></div>
-    <div class="content"><b>{{col.label}}</b></div>
-    <template v-for="(part, index) in aggregatedData" :key="part.key">
-      <div :style="styleForBar(part, index)" class="bar" @click="$emit('updateFilter', {col:col, value:part.key})" :title="part.key + ': ' + part.value"></div>
-    </template>
+<template>
+
+  <div class="container">
+    <div class="buttons">
+      <button class="pie" :class="{active: type === 'pie'}" @click="type = 'pie'" title="Pie"><i/></button>
+      <button class="bar" :class="{active: type === 'bar'}" @click="type = 'bar'" title="Bar"><i/></button>
+    </div>
+    <div class="chart-container">
+      <PieChart v-if="type === 'pie'" :rows="rows" :col="col" @updateFilter="$emit('updateFilter', $event)"/>
+      <BarChart v-else-if="type === 'bar'" :rows="rows" :col="col" @updateFilter="$emit('updateFilter', $event)"/>
+    </div>
   </div>
+
 </template>
 
 <script>
 
-  import Tools from '@/services/Tools';
+  /* eslint-disable max-len */
 
-  import ColorsMixin from '@/mixins/Colors.mixin';
-  import Legend from '@/components/Legend';
+  import BarChart from '@/components/BarChart';
+  import PieChart from '@/components/PieChart';
 
   export default {
-    name: 'BarChart',
-    components: {Legend},
-    mixins: [ColorsMixin('#42b883', '#35495e')],
+    name: 'SimpleChart',
+    components: {
+      BarChart,
+      PieChart,
+    },
     props: {
       rows: Array,
       col: Object,
@@ -27,61 +33,75 @@
     emits: ['updateFilter'],
     data() {
       return {
-        chartWidth: 150,
-        chartHeight: 120,
-        chartMargin: 5,
+        type: 'pie',
       };
     },
-    computed: {
-      aggregatedData() {
-        return Object.entries(
-          this.rows
-            .reduce((acc, row)=>{
-              const value = Tools.findValueAtPath(row, this.col.path);
-              return {...acc, [value]: acc[value] ? acc[value]+1 : 1};
-            }, {}),
-        ).map((a)=>({key: a[0], value: a[1]}));
-      },
-      maxValue() {
-        return this.aggregatedData.reduce((acc, part)=>Math.max(acc, part.value), 0);
-      },
-      keys() {
-        return this.aggregatedData.map((d)=>d.key);
-      },
-    },
-    methods: {
-      styleForBar(part, index) {
-        const barWidth = (this.chartWidth / this.aggregatedData.length) - this.chartMargin;
-        const left = (barWidth + this.chartMargin) * index;
-        const height = (part.value / this.maxValue * this.chartHeight);
-        return {
-          'width': barWidth + 'px',
-          'left': left + 'px',
-          'height': height + 'px',
-          'bottom': '0',
-          'background-color': this.colors[index],
-        };
-      },
+    mounted() {
+      this.type = this.col.defaultChartType || 'pie';
     },
   };
 </script>
 
 <style scoped>
-  .bar-container {
-    height: 150px;
-    width: 300px;
+
+  .container {
     position: relative;
     display: inline-block;
+    width: 300px;
+    height: 150px;
+    padding-left:50px;
+    margin: 20px;
   }
 
-  .content {
-    width: 150px;
-    text-align: center;
+  .chart-container {
+    float: left;
   }
 
-  .bar {
+  .buttons {
+    position: absolute;
+    left:0;
+    z-index:1;
+  }
+
+  .buttons button {
+    position:relative;
+    height:24px;
+    width: 24px;
+    border: 0px solid black;
+    background-color: var(--color-2);
+    outline: none;
+    transition:0.3s all;
+  }
+
+  button.active {
+    background-color: var(--color-1);
+  }
+
+  button i {
     position:absolute;
-    cursor: pointer;
+    height:24px;
+    width: 24px;
+    background-size: 16px;
+    background-repeat: no-repeat;
+    filter: invert(1);
+    display: block;
+    top: 4px;
+    left: 5px;
+    transition:0.3s all;
+  }
+  button:hover {
+    background-color: var(--color-1);
+  }
+  button:hover i {
+    filter: invert(0);
+  }
+
+  button.pie i {
+    background-image: url("data:image/svg+xml;base64,PCEtLSBHZW5lcmF0ZWQgYnkgSWNvTW9vbi5pbyAtLT4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KPHRpdGxlPjwvdGl0bGU+CjxnIGlkPSJpY29tb29uLWlnbm9yZSI+CjwvZz4KPHBhdGggZD0iTTIyNCAyODh2LTIyNGMtMTIzLjcxMiAwLTIyNCAxMDAuMjg4LTIyNCAyMjRzMTAwLjI4OCAyMjQgMjI0IDIyNCAyMjQtMTAwLjI4OCAyMjQtMjI0YzAtMzYuMDE3LTguNTE0LTcwLjA0Mi0yMy42MTgtMTAwLjE5MWwtMjAwLjM4MiAxMDAuMTkxek00NTYuMzgyIDEyMy44MDljLTM2Ljc3Ni03My40MDgtMTEyLjY4Ny0xMjMuODA5LTIwMC4zODItMTIzLjgwOXYyMjRsMjAwLjM4Mi0xMDAuMTkxeiI+PC9wYXRoPgo8L3N2Zz4K");
+  }
+
+  button.bar i {
+    background-image: url("data:image/svg+xml;base64,PCEtLSBHZW5lcmF0ZWQgYnkgSWNvTW9vbi5pbyAtLT4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KPHRpdGxlPjwvdGl0bGU+CjxnIGlkPSJpY29tb29uLWlnbm9yZSI+CjwvZz4KPHBhdGggZD0iTTAgNDE2aDUxMnY2NGgtNTEyek02NCAyODhoNjR2OTZoLTY0ek0xNjAgMTYwaDY0djIyNGgtNjR6TTI1NiAyNTZoNjR2MTI4aC02NHpNMzUyIDY0aDY0djMyMGgtNjR6Ij48L3BhdGg+Cjwvc3ZnPgo=");
   }
 
 </style>

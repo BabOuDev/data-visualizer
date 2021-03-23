@@ -71,11 +71,12 @@
 
   .side-panel{
     position:fixed;
+    z-index: 2;
     overflow-y:auto;
     right: 0;
     top: 0;
-    height: 100%;
-    width: 530px;
+    height: calc(100% - 120px);
+    width: 550px;
     background-color:white;
     box-shadow: 1px 0px 10px black;
     padding: 60px 20px;
@@ -94,7 +95,7 @@
   .input-content{
     display:inline-block;
     font-size: 20px;
-    border: 1px solid #42b883;
+    border: 1px solid var(--color-1);
     background-color:white;
   }
 
@@ -109,9 +110,9 @@
 
   .save-button{
     float: right;
-    margin-right: 22px;
+    margin-right: 42px;
     font-size: 20px;
-    background-color: #42b883;
+    background-color: var(--color-1);
     color:white;
     cursor:pointer;
   }

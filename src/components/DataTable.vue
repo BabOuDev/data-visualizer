@@ -103,13 +103,13 @@
   }
 
   table tr:hover {
-    background-color:  #42b883;
+    background-color: var(--color-1);
   }
 
   table th {
     padding-top: 12px;
     padding-bottom: 12px;
-    background-color: #35495e;
+    background-color: var(--color-2);
     color: white;
   }
 
@@ -143,7 +143,7 @@
     border: solid 5px transparent;
     margin: 4px 4px 0 3px;
     background: transparent;
-    border-bottom: solid 7px #42b883;
+    border-bottom: solid 7px var(--color-1);
     border-top-width: 0;
   }
 
@@ -162,7 +162,7 @@
     border: solid 5px transparent;
     margin: 4px 4px 0 3px;
     background: transparent;
-    border-top: solid 7px #42b883;
+    border-top: solid 7px var(--color-1);
     border-bottom-width: 0;
   }
 </style>

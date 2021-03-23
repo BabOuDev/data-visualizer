@@ -1,16 +1,12 @@
 <template>
-  <div class="pie-container">
+  <div class="bar-container">
     <Legend :keys="keys" :colors="colors" @updateFilterFromLegend="$emit('updateFilter', {col:col, value:$event})"/>
-    <div class="pie-background"></div>
-    <template v-for="(slice, index) in aggregatedData" :key="slice.key">
-      <div :style="styleForSlice(slice, index)" class="hold" @click="$emit('updateFilter', {col:col, value:slice.key})" :title="slice.key + ': ' + slice.value">
-        <div class="pie" :style="styleForInnerSlice(slice, index)"></div>
-      </div>
-      <div v-if="over50(slice)" :style="styleForSlice(slice, index, true)" class="hold" @click="$emit('updateFilter', {col:col, value:slice.key})" :title="slice.key + ': ' + slice.value">
-        <div class="pie" :style="styleForInnerSlice(slice, index, true)"></div>
-      </div>
+    <div class="bar-background"></div>
+    <div class="bar-origin"></div>
+    <div class="content"><b>{{col.label}}</b></div>
+    <template v-for="(part, index) in aggregatedData" :key="part.key">
+      <div :style="styleForBar(part, index)" class="bar" @click="$emit('updateFilter', {col:col, value:part.key})" :title="part.key + ': ' + part.value"></div>
     </template>
-    <div class="inner-circle"><div class="content"><b>{{col.label}}</b></div></div>
   </div>
 </template>
 
@@ -22,14 +18,21 @@
   import Legend from '@/components/Legend';
 
   export default {
-    name: 'PieChart',
+    name: 'BarChart',
     components: {Legend},
-    mixins: [ColorsMixin('#35495e', '#42b883')],
+    mixins: [ColorsMixin()],
     props: {
       rows: Array,
       col: Object,
     },
     emits: ['updateFilter'],
+    data() {
+      return {
+        chartWidth: 150,
+        chartHeight: 120,
+        chartMargin: 5,
+      };
+    },
     computed: {
       aggregatedData() {
         return Object.entries(
@@ -40,90 +43,56 @@
             }, {}),
         ).map((a)=>({key: a[0], value: a[1]}));
       },
+      maxValue() {
+        return this.aggregatedData.reduce((acc, part)=>Math.max(acc, part.value), 0);
+      },
       keys() {
         return this.aggregatedData.map((d)=>d.key);
       },
+      datasetsNumber() {
+        return this.aggregatedData.length;
+      },
     },
     methods: {
-      styleForSlice(slice, index, secondHalf) {
-        const range = (slice.value / this.rows.length * 360);
-        const start = this.aggregatedData.slice(0, index).reduce((acc, slice)=>acc+(slice.value / this.rows.length * 360), 0) + ( secondHalf ? range-180 : 0);
+      styleForBar(part, index) {
+        const barWidth = (this.chartWidth / this.aggregatedData.length) - this.chartMargin;
+        const left = (barWidth + this.chartMargin) * index;
+        const height = (part.value / this.maxValue * this.chartHeight);
         return {
-          'transform': 'rotate('+start+'deg)',
-        };
-      },
-      styleForInnerSlice(slice, index, secondHalf) {
-        const range = Math.min(180, (slice.value / this.rows.length * 360));
-        console.log(index, this.colors[index]);
-        return {
+          'width': barWidth + 'px',
+          'left': left + 'px',
+          'height': height + 'px',
+          'bottom': '0',
           'background-color': this.colors[index],
-          'transform': 'rotate('+range+'deg)',
         };
-      },
-      over50(slice) {
-        const isOver50 = (slice.value / this.rows.length ) > 0.5;
-        return isOver50;
       },
     },
   };
 </script>
 
 <style scoped>
-  .pie-container {
+  .bar-container {
     height: 150px;
     width: 300px;
     position: relative;
-    display: inline-block;
-  }
-
-  .pie-background {
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    border-radius: 100%;
-    box-shadow: 0px 0px 8px rgba(0,0,0,0.5);
-  }
-
-  .pie {
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    border-radius: 100%;
-    clip: rect(0px, 75px, 150px, 0px);
-    pointer-events: auto;
-    cursor:pointer;
-  }
-
-  .hold {
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    border-radius: 100%;
-    clip: rect(0px, 150px, 150px, 75px);
-    pointer-events: none;
-  }
-
-
-  .inner-circle {
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    background-color: #444;
-    border-radius: 100%;
-    top: 35px;
-    left: 35px;
-    box-shadow: 0px 0px 8px rgba(0,0,0,0.5) inset;
-    color: white;
-    z-index:9;
-  }
-  .inner-circle .content {
-    position: absolute;
     display: block;
-    width: 80px;
-    top: 30px;
-    left: 0;
-    text-align: center;
-    font-size: 14px;
-    z-index:9;
   }
+
+  .bar-origin {
+    height: 150px;
+    width: 151px;
+    margin-left: -3px;
+    border-bottom: 2px solid black;
+  }
+
+  .content {
+    width: 150px;
+    text-align: center;
+  }
+
+  .bar {
+    position:absolute;
+    cursor: pointer;
+  }
+
 </style>

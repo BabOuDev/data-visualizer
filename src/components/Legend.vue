@@ -24,6 +24,7 @@
   .legend-container {
     margin-left: 170px;
     position:absolute;
+    user-select: none;
   }
 
   .key {

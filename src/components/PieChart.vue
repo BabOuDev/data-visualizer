@@ -24,7 +24,7 @@
   export default {
     name: 'PieChart',
     components: {Legend},
-    mixins: [ColorsMixin('#35495e', '#42b883')],
+    mixins: [ColorsMixin()],
     props: {
       rows: Array,
       col: Object,
@@ -43,6 +43,9 @@
       keys() {
         return this.aggregatedData.map((d)=>d.key);
       },
+      datasetsNumber() {
+        return this.aggregatedData.length;
+      },
     },
     methods: {
       styleForSlice(slice, index, secondHalf) {
@@ -52,9 +55,8 @@
           'transform': 'rotate('+start+'deg)',
         };
       },
-      styleForInnerSlice(slice, index, secondHalf) {
+      styleForInnerSlice(slice, index) {
         const range = Math.min(180, (slice.value / this.rows.length * 360));
-        console.log(index, this.colors[index]);
         return {
           'background-color': this.colors[index],
           'transform': 'rotate('+range+'deg)',
@@ -73,7 +75,7 @@
     height: 150px;
     width: 300px;
     position: relative;
-    display: inline-block;
+    display: block;
   }
 
   .pie-background {
@@ -114,7 +116,7 @@
     left: 35px;
     box-shadow: 0px 0px 8px rgba(0,0,0,0.5) inset;
     color: white;
-    z-index:9;
+    z-index:1;
   }
   .inner-circle .content {
     position: absolute;

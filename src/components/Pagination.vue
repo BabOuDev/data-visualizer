@@ -96,6 +96,7 @@
 }
 ul {
   display: block;
+  text-align: center;
 }
 li {
   display: inline-block;
