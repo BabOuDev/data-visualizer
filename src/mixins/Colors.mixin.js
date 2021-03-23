@@ -1,8 +1,8 @@
-export default function(color1, color2) {
+export default function(color1='#42b883', color2='#35495e') {
   return {
     computed: {
       colors() {
-        return this.aggregatedData.length > 1 ? this.interpolateColors(this.hexToRgb(color1), this.hexToRgb(color2), this.aggregatedData.length) : [this.hexToRgb(color1)];
+        return this.datasetsNumber > 1 ? this.interpolateColors(this.hexToRgb(color1), this.hexToRgb(color2), this.datasetsNumber) : [this.hexToRgb(color1)];
       },
     },
     methods: {
@@ -37,6 +37,10 @@ export default function(color1, color2) {
       rgbToHex(r, g, b) {
         return '#' + this.componentToHex(r) + this.componentToHex(g) + this.componentToHex(b);
       },
+    },
+    mounted() {
+      document.documentElement.style.setProperty('--color-1', color1);
+      document.documentElement.style.setProperty('--color-2', color2);
     },
   };
 }

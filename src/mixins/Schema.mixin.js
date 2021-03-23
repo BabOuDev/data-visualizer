@@ -36,6 +36,7 @@ export default {
           filter: true,
           edit: true,
           chart: true,
+          defaultChartType: 'pie',
         },
         {
           label: 'Email',
@@ -73,6 +74,7 @@ export default {
           filter: true,
           edit: true,
           chart: true,
+          defaultChartType: 'bar',
         },
         {
           label: 'Fav. Fruit',
@@ -84,6 +86,7 @@ export default {
           filter: true,
           edit: true,
           chart: true,
+          defaultChartType: 'bar',
         },
         {
           label: 'Fav. Movie',
@@ -102,6 +105,7 @@ export default {
           filter: true,
           edit: true,
           chart: true,
+          defaultChartType: 'pie',
         },
         {
           label: 'Address',

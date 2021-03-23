@@ -12,7 +12,7 @@ export default function(list, search, filters) {
       filteredPeople() {
         return this[list]
           // filtre les lignes qui ne passent pas les filtres par colonne
-          .filter((p)=>this[filters]
+          .filter((p)=>!this.enableFilter || this[filters]
             .every((f)=>f.values.includes(Tools.findValueAtPath(p, f.path)))) // retourne les lignes qui passent tous les filtres
           // filtre les lignes qui ne contiennent pas la recherche
           .filter((p)=>!this[search] || // Si le champ de recherche est vide, on retourne tout
