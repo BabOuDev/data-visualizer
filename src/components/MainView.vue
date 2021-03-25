@@ -1,7 +1,5 @@
 <template>
-  <h1>Data Vizualizer</h1>
-
-  <div class="row">
+  <div class="row form">
     <div class="search-container">
       <label for="search">Search: </label>
       <input id="search" class="search-input" type="text" v-model="search" placeholder="Search..."/>
@@ -14,6 +12,7 @@
     <button class="export" @click="exportData">Export to JSON</button>
     <a id="downloadAnchorElem"/>
     <FiltersList v-if="enableFilter" v-model="filters" @resetFilters="resetFilters"/>
+    <br/>
   </div>
 
   <div class="row">
@@ -136,7 +135,16 @@
     float:right;
   }
 
+  .form {
+    padding: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    width: calc(100% - 22px);
+    background-color: var(--color-2);
+  }
+
   label {
+    color:white;
     font-size: 20px;
   }
 
@@ -151,6 +159,7 @@
   }
 
   .search-container {
+    margin-top: 10px;
     float:right;
   }
 

@@ -32,6 +32,10 @@
   };
 </script>
 
-<style scoped>
+<style>
+
+  body {
+    background: radial-gradient(circle, var(--color-1-alpha) 0%, var(--color-2-alpha) 70%);
+  }
 
 </style>

@@ -79,13 +79,6 @@
         }
         return visiblePages;
       },
-      // Les données de la page courante
-      peopleForCurrentPage() {
-        return this.people.slice(
-          this.pageOffset,
-          this.pageOffset + this.pageSize,
-        );
-      },
     },
   };
 </script>
@@ -110,12 +103,12 @@ li {
   text-align: center;
 }
 li:hover {
-  background-color: lightgray;
+  background-color: var(--color-1);
 }
 .current {
   font-weight: bold;
   pointer-events: none;
-  background-color: lightgray;
+  background-color: var(--color-2);
 }
 .hidden {
   visibility: hidden;

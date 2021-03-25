@@ -5,7 +5,7 @@
         {{filter.column}}: {{filter.values.join(' or ')}}
         <span class="remove-button" @click="removeFilter(index)">x</span>
       </label>
-      <span v-if="index < value.length-1">and</span>
+      <label v-if="index < value.length-1">and</label>
     </span>
   </div>
 </template>
@@ -44,14 +44,19 @@
 }
 
 .filter-label{
-  background-color: var(--color-2);
+  background-color: var(--color-1);
   color:white;
-  padding: 2px 28px 2px 18px;
+  padding: 4px 28px 4px 18px;
   margin: 2px 5px;
   position:relative;
   white-space: nowrap;
   display: inline-block;
 }
+
+label {
+  font-size: 20px;
+}
+
 .filter-label:hover .remove-button{
   display: block;
 }

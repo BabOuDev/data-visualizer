@@ -94,6 +94,10 @@
     padding: 8px;
   }
 
+  table tr:nth-child(odd){
+    background-color: lightslategray;
+  }
+
   table tr:nth-child(even){
     background-color: lightgray;
   }

@@ -62,6 +62,11 @@
   margin-right: 20px;
 }
 
+label {
+  color:white;
+  font-size: 20px;
+}
+
 button {
   font-size: 20px;
   margin-left:10px;

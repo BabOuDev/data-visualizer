@@ -41,6 +41,8 @@ export default function(color1='#42b883', color2='#35495e') {
     mounted() {
       document.documentElement.style.setProperty('--color-1', color1);
       document.documentElement.style.setProperty('--color-2', color2);
+      document.documentElement.style.setProperty('--color-1-alpha', color1+'80');
+      document.documentElement.style.setProperty('--color-2-alpha', color2+'80');
     },
   };
 }
