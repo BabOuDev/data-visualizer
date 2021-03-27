@@ -15,7 +15,7 @@
   import Tools from '@/services/Tools';
 
   import ColorsMixin from '@/mixins/Colors.mixin';
-  import Legend from '@/components/Legend';
+  import Legend from '@/components/charts/Legend';
 
   export default {
     name: 'BarChart',

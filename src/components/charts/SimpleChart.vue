@@ -17,8 +17,8 @@
 
   /* eslint-disable max-len */
 
-  import BarChart from '@/components/BarChart';
-  import PieChart from '@/components/PieChart';
+  import BarChart from '@/components/charts/BarChart';
+  import PieChart from '@/components/charts/PieChart';
 
   export default {
     name: 'SimpleChart',

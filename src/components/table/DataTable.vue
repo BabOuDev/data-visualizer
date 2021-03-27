@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import Pagination from '@/components/Pagination.vue';
+  import Pagination from '@/components/table/Pagination.vue';
 
   import Tools from '@/services/Tools';
   import SortingMixin from '@/mixins/Sorting.mixin';
