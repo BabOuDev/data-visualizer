@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChartWrapper.vue should renders correctly 1`] = `
+<div class="container">
+  <div class="buttons"><button class="pie active" title="Pie"><i></i></button><button class="bar" title="Bar"><i></i></button></div>
+  <div class="chart-container">
+    <pie-chart-stub rows="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]" col="[object Object]"></pie-chart-stub>
+  </div>
+</div>
+`;

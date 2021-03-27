@@ -21,7 +21,7 @@
   import PieChart from '@/components/charts/PieChart';
 
   export default {
-    name: 'SimpleChart',
+    name: 'ChartWrapper',
     components: {
       BarChart,
       PieChart,

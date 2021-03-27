@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PieChart.vue should renders correctly 1`] = `
+<div class="pie-container">
+  <legend-stub keys="A,B,C" colors="#42b883,#3c8171,#35495e"></legend-stub>
+  <div class="pie-background"></div>
+  <div style="transform: rotate(0deg);" class="hold" title="A: 1">
+    <div class="pie" style="background-color: rgb(66, 184, 131); transform: rotate(60deg);"></div>
+  </div>
+  <!--v-if-->
+  <div style="transform: rotate(60deg);" class="hold" title="B: 2">
+    <div class="pie" style="background-color: rgb(60, 129, 113); transform: rotate(120deg);"></div>
+  </div>
+  <!--v-if-->
+  <div style="transform: rotate(180deg);" class="hold" title="C: 3">
+    <div class="pie" style="background-color: rgb(53, 73, 94); transform: rotate(180deg);"></div>
+  </div>
+  <!--v-if-->
+  <div class="inner-circle">
+    <div class="content"><b></b></div>
+  </div>
+</div>
+`;

@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pagination.vue should renders correctly 1`] = `
+<div class="pagination-container"><span class="items-by-page"><select><option>10</option><option>25</option><option>50</option><option>100</option></select></span>
+  <ul class="pagination">
+    <li class=""> &lt;&lt; </li>
+    <li class=""> &lt; </li>
+    <li class="hidden">0</li>
+    <li class="">1</li>
+    <li class="">2</li>
+    <li class="current">3</li>
+    <li class="">4</li>
+    <li class="">5</li>
+    <li class="">6</li>
+    <li class=""> &gt; </li>
+    <li class=""> &gt;&gt; </li>
+  </ul><span class="pagination-summary"> Rows 21 to 30 of <span id="total-results">100</span></span>
+</div>
+`;

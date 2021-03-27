@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BarChart.vue should renders correctly 1`] = `
+<div class="bar-container">
+  <legend-stub keys="A,B,C" colors="#42b883,#3c8171,#35495e"></legend-stub>
+  <div class="bar-background"></div>
+  <div class="bar-origin"></div>
+  <div class="content"><b></b></div>
+  <div style="width: 45px; left: 0px; height: 40px; bottom: 0px; background-color: rgb(66, 184, 131);" class="bar" title="A: 1"></div>
+  <div style="width: 45px; left: 50px; height: 80px; bottom: 0px; background-color: rgb(60, 129, 113);" class="bar" title="B: 2"></div>
+  <div style="width: 45px; left: 100px; height: 120px; bottom: 0px; background-color: rgb(53, 73, 94);" class="bar" title="C: 3"></div>
+</div>
+`;

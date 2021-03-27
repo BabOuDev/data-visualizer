@@ -19,7 +19,7 @@
   </div>
 
   <div class="half-row">
-    <SimpleChart v-for="col in columnsToChart" :key="col.label" :rows="filteredPeople" :col="col" @updateFilter="addFilter"/>
+    <ChartWrapper v-for="col in columnsToChart" :key="col.label" :rows="filteredPeople" :col="col" @updateFilter="addFilter"/>
   </div>
 
   <div class="half-row right">
@@ -38,7 +38,7 @@
   import Switch from '@/components/filters/Switch.vue';
   import FiltersForm from '@/components/filters/FiltersForm';
   import FiltersList from '@/components/filters/FiltersList';
-  import SimpleChart from '@/components/charts/SimpleChart';
+  import ChartWrapper from '@/components/charts/ChartWrapper';
   import WorldMap from '@/components/charts/WorldMap';
   import DataTable from '@/components/table/DataTable.vue';
   import SidePanel from '@/components/panel/SidePanel';
@@ -52,7 +52,7 @@
       FiltersList,
       FiltersForm,
       WorldMap,
-      SimpleChart,
+      ChartWrapper,
       SidePanel,
       DataTable,
       Switch,

@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Legend.vue should renders correctly 1`] = `
+<div class="legend-container">
+  <div class="key">
+    <div class="square" style="background-color: rgb(255, 0, 0);"></div><label class="label">A</label>
+  </div>
+  <div class="key">
+    <div class="square" style="background-color: rgb(0, 255, 0);"></div><label class="label">B</label>
+  </div>
+  <div class="key">
+    <div class="square" style="background-color: rgb(0, 0, 255);"></div><label class="label">C</label>
+  </div>
+</div>
+`;

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SidePanel.vue should renders correctly 1`] = `
+<div class="side-panel">
+  <div class="input-row"><label class="input-label" for="Col1">Col1</label><input class="input-content" name="Col1" type="text" required=""></div>
+  <div class="input-row"><label class="input-label" for="Col2">Col2</label><select class="input-content" name="Col2">
+      <option>B1</option>
+      <option>B2</option>
+      <option>B3</option>
+    </select></div>
+  <div class="input-row"><label class="input-label" for="Col3">Col3</label><input class="input-content" name="Col3" type="number"></div><button id="save-button">Save</button><a id="cancel-button">Cancel</a>
+</div>
+`;

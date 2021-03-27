@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FiltersForm.vue should renders correctly 1`] = `
+<div class="filter-form"><label for="column">Column </label><select id="column" class="column-input" placeholder="Column">
+    <option value="[object Object]">ColName</option>
+  </select><label for="value"> equals </label><select id="value" class="column-input" placeholder="Value" disabled=""></select><button id="apply-filters" class="add-button" disabled="">Add Filter</button><button id="reset-filters" disabled="">Reset Filters</button></div>
+`;
