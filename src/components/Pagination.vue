@@ -1,6 +1,16 @@
 <template>
   <div class="pagination-container">
-    <ul class="pagination">
+
+    <span class="items-by-page">
+      <select v-model="itemsByPage">
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </span>
+
+    <ul class="pagination" v-if="total > itemsByPage">
       <li
         :class="{ disabled: currentPage === 0 }"
         @click="() => $emit('pageChanged', 0)"
@@ -36,6 +46,11 @@
         &gt;&gt;
       </li>
     </ul>
+
+    <span class="pagination-summary">
+      Rows {{ offset+1 }} to {{ offset+limit}} of <span id="total-results">{{total}}</span>
+    </span>
+
   </div>
 </template>
 
@@ -44,16 +59,27 @@
     name: 'Pagination',
     props: {
       total: Number,
-      limit: Number,
       offset: Number,
+      limit: Number,
     },
-    emits: ['pageChanged'],
+    emits: ['pageChanged', 'update:limit'],
     data() {
       return {
+        // Nombre de pages visibles
         totalNumberOfVisiblePages: 7,
       };
     },
     computed: {
+      // itemByPage
+      itemsByPage: {
+        get() {
+          return this.limit;
+        },
+        set(value) {
+          this.$emit('pageChanged', 0);
+          this.$emit('update:limit', parseInt(value));
+        },
+      },
       // Nombre total de pages
       numberOfPages() {
         return Math.ceil(this.total / this.limit);
@@ -86,10 +112,17 @@
 <style scoped>
 .pagination-container {
   width: 100%;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 ul {
   display: block;
   text-align: center;
+  width: calc(100% - 400px);
+  float:left;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 li {
   display: inline-block;
@@ -116,5 +149,22 @@ li:hover {
 .disabled {
   opacity: 0.3;
   pointer-events: none;
+}
+
+.items-by-page {
+  float:left;
+  width: 180px;
+}
+select{
+  width: 60px;
+  font-size: 20px;
+  margin-bottom:10px;
+  padding: 2px 0px 1px;
+  border: 1px solid var(--color-1);
+  background-color:white;
+}
+.pagination-summary {
+  width: 180px;
+  float:right;
 }
 </style>

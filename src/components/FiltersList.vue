@@ -45,7 +45,6 @@
 
 .filter-label{
   background-color: var(--color-1);
-  color:white;
   padding: 4px 28px 4px 18px;
   margin: 2px 5px;
   position:relative;
@@ -55,6 +54,7 @@
 
 label {
   font-size: 20px;
+  color:white;
 }
 
 .filter-label:hover .remove-button{

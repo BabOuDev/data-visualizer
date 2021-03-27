@@ -9,7 +9,7 @@
       <Switch class="filter-switch" v-model="enableFilter" />
     </div>
     <FiltersForm v-if="enableFilter" v-model="filters" :columns="columnsToFilterOn" @resetFilters="resetFilters"/>
-    <button class="export" @click="exportData">Export to JSON</button>
+    <button id="export" @click="exportData">Export to JSON</button>
     <a id="downloadAnchorElem"/>
     <FiltersList v-if="enableFilter" v-model="filters" @resetFilters="resetFilters"/>
     <br/>
@@ -127,7 +127,8 @@
   }
 
   .half-row {
-    width: 45%;
+    width: 50%;
+    min-width: 750px;
     display: inline-block;
     margin-bottom: 20px;
   }
@@ -163,7 +164,7 @@
     float:right;
   }
 
-  button.export {
+  button#export {
     font-size: 20px;
     margin-left:10px;
     float:right;

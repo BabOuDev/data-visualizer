@@ -3,7 +3,7 @@
   <table>
     <thead>
       <tr>
-        <th v-for="col in columns" :key="col.label" :width="col.width + 'px'">
+        <th v-for="col in columns" :key="col.label" :style="{'max-width':col.width + 'px'}">
           {{ col.label }}
           <div class="sorting-caret" @click="sortBy(col)">
             <span class="caret sort-by-asc" :class="{active: sortingColumn === col.label && sortingAsc}"></span>
@@ -14,14 +14,14 @@
     </thead>
     <tbody>
       <tr v-for="row in rowsForCurrentPage" v-bind:key="row.id" @click="$emit('row-selected', row)">
-        <td v-for="col in columns" :key="col.label" v-html="col.renderer(row, col.path.map((p) => findValueAtPath(row, p)))"></td>
+        <td v-for="col in columns" :key="col.label" v-html="col.renderer(row, col.path.map((p) => findValueAtPath(row, p)))" :style="{'max-width':col.width + 'px'}"></td>
       </tr>
     </tbody>
   </table>
 
   <label class="info-label" v-if="rowsForCurrentPage.length === 0">No data for current filters</label>
 
-  <Pagination v-else-if="totalNumberOfRows > pageLimit" :total="totalNumberOfRows" :limit="pageLimit" :offset="pageOffset" @pageChanged="changePage"/>
+  <Pagination v-else :total="totalNumberOfRows" v-model:limit="pageLimit" :offset="pageOffset" @pageChanged="changePage"/>
 
 </template>
 
@@ -92,6 +92,9 @@
   table td, table th {
     border: 1px solid lightgray;
     padding: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   table tr:nth-child(odd){

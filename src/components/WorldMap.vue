@@ -4,7 +4,7 @@
     <template v-for="pin in rows" :key="pin.id">
       <div :style="styleForPin(pin)" class="pin" :title="pin.firstname + ' ' + pin.lastname" @click="selectPin(pin.id)"></div>
     </template>
-    <button v-if="higlighted" class="reset-highlighting" @click="resetPinSelection">Reset Selection</button>
+    <button v-if="higlighted" id="reset-highlighting" @click="resetPinSelection">Reset Selection</button>
   </div>
 </template>
 
@@ -76,6 +76,7 @@
     height: var(--map-height);
     position: relative;
     display: inline-block;
+    float:right;
     background-size: 100% 100%;
   }
 
@@ -103,7 +104,7 @@
     z-index:1;
   }
 
-  .reset-highlighting {
+  #reset-highlighting {
     font-size: 20px;
     margin-left:10px;
     position:absolute;

@@ -4,19 +4,19 @@
     <div class="input-row" v-for="field in columns" :key="field.label">
       <label class="input-label" :for="field.label">{{field.label}}</label>
       <template v-if="field.type === 'text'">
-        <input class="input-content" :name="field.label" type="text" v-model="serializedRow[field.label]" />
+        <input class="input-content" :name="field.label" type="text" v-model="serializedRow[field.label]" :pattern="field.pattern" required/>
       </template>
       <template v-else-if="field.type === 'number'">
-        <input class="input-content" type="number" v-model="serializedRow[field.label]" :min="field.min" :max="field.max"/>
+        <input class="input-content" :name="field.label" type="number" v-model="serializedRow[field.label]" :min="field.min" :max="field.max" :step="field.step"/>
       </template>
       <template v-else-if="field.type === 'select'">
-        <select class="input-content" v-model="serializedRow[field.label]">
+        <select class="input-content" :name="field.label" v-model="serializedRow[field.label]">
           <option v-for="opt in field.options" :key="opt" :value="opt">{{opt}}</option>
         </select>
       </template>
     </div>
-    <button class="save-button" @click="save">Save</button>
-    <a class="cancel-button" @click="$emit('cancel')">Cancel</a>
+    <button id="save-button" @click="save">Save</button>
+    <a id="cancel-button" @click="$emit('cancel')">Cancel</a>
   </div>
 
 </template>
@@ -34,13 +34,10 @@
       'save-row',
       'cancel',
     ],
-    data() {
-      return {
-        serializedRow: {},
-      };
-    },
     computed: {
-
+      serializedRow() {
+        return this.serializeRow(this.row);
+      },
     },
     methods: {
       save() {
@@ -61,13 +58,15 @@
         return row;
       },
     },
-    created() {
-      this.serializedRow = this.serializeRow(this.row);
-    },
   };
 </script>
 
 <style scoped>
+
+  input:invalid
+  {
+    border-color:red;
+  }
 
   .side-panel{
     position:fixed;
@@ -108,7 +107,7 @@
     width: 298px;
   }
 
-  .save-button{
+  #save-button{
     float: right;
     margin-right: 42px;
     font-size: 20px;
@@ -117,13 +116,13 @@
     cursor:pointer;
   }
 
-  .cancel-button{
+  #cancel-button{
     float: right;
     margin: 3px 20px;
     font-size: 20px;
     cursor:pointer;
   }
-  .cancel-button:hover{
+  #cancel-button:hover{
     text-decoration: underline;
   }
 

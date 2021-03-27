@@ -8,8 +8,8 @@
     <select id="value" class="column-input" v-model="filterValue" placeholder="Value" :disabled="!filterColumn.options.length">
       <option v-for="opt in filterColumn.options" :key="opt">{{ opt }}</option>
     </select>
-    <button class="add-button" @click="addFilter" :disabled="!filterValue">Add Filter</button>
-    <button @click="$emit('resetFilters')" :disabled="!value.length">Reset Filters</button>
+    <button id="apply-filters" class="add-button" @click="addFilter" :disabled="!filterValue">Add Filter</button>
+    <button id="reset-filters" @click="$emit('resetFilters')" :disabled="!value.length">Reset Filters</button>
   </div>
 </template>
 
@@ -19,7 +19,7 @@
     name: 'FiltersForm',
 
     props: ['modelValue', 'columns'],
-    emits: ['update:modelValue', 'export'],
+    emits: ['update:modelValue', 'resetFilters'],
 
     data() {
       return {
