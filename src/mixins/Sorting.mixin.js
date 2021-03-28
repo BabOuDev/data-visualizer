@@ -3,13 +3,14 @@ import Tools from '@/services/Tools';
 export default {
   data() {
     return {
-      // Colonne à trier
+      // Column to sort
       sortingColumn: null,
-      // Direction du tri
+      // Sorting order
       sortingAsc: false,
     };
   },
   computed: {
+    // List of sorted data
     sortedPeople() {
       if (!this.sortingColumn) {
         return this.rows;
@@ -30,6 +31,7 @@ export default {
     },
   },
   methods: {
+    // Change the sorting direction when clicking twice on the same column
     sortBy(col) {
       if (this.sortingColumn === col.label) {
         this.sortingAsc = !this.sortingAsc;

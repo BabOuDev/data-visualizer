@@ -65,12 +65,12 @@
     emits: ['pageChanged', 'update:limit'],
     data() {
       return {
-        // Nombre de pages visibles
+        // Number of visible pages
         totalNumberOfVisiblePages: 7,
       };
     },
     computed: {
-      // itemByPage
+      // Model for page size
       itemsByPage: {
         get() {
           return this.limit;
@@ -80,15 +80,15 @@
           this.$emit('update:limit', parseInt(value));
         },
       },
-      // Nombre total de pages
+      // Total number of pages
       numberOfPages() {
         return Math.ceil(this.total / this.limit);
       },
-      // Nombre total de pages
+      // Current page
       currentPage() {
         return this.offset / this.limit;
       },
-      // La liste des pages visibles
+      // The list pages visible in pagination
       visiblePages() {
         const visiblePages = [];
         const start = parseInt(-(this.totalNumberOfVisiblePages - 1) / 2);

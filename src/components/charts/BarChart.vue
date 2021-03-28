@@ -34,6 +34,7 @@
       };
     },
     computed: {
+      // Group data by key
       aggregatedData() {
         return Object.entries(
           this.rows
@@ -43,17 +44,21 @@
             }, {}),
         ).map((a)=>({key: a[0], value: a[1]}));
       },
+      // Extract the maximum value in the data
       maxValue() {
         return this.aggregatedData.reduce((acc, part)=>Math.max(acc, part.value), 0);
       },
+      // List all keys
       keys() {
         return this.aggregatedData.map((d)=>d.key);
       },
+      // Number of groups
       datasetsNumber() {
         return this.aggregatedData.length;
       },
     },
     methods: {
+      // Generate the style object for each bar
       styleForBar(part, index) {
         const barWidth = (this.chartWidth / this.aggregatedData.length) - this.chartMargin;
         const left = (barWidth + this.chartMargin) * index;

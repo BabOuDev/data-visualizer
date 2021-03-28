@@ -34,15 +34,39 @@
       'save-row',
       'cancel',
     ],
+    data() {
+      return {
+        panelIsOpened: false,
+        animationTime: 0.3,
+      };
+    },
     computed: {
+      // The flattened row to edit
       serializedRow() {
         return this.serializeRow(this.row);
       },
     },
     methods: {
-      save() {
-        this.$emit('save-row', this.deserializeRow(this.serializedRow));
+      // Transition animation when opening/closing the panel
+      animatePanel(open) {
+        return new Promise((res)=>{
+          setTimeout(()=>{
+            this.panelIsOpened = open;
+            setTimeout(()=>{
+              res();
+            }, this.animationTime*1000);
+          });
+        });
       },
+      // Saving edited data
+      save() {
+        this.animatePanel().then(()=>this.$emit('save-row', this.deserializeRow(this.serializedRow)));
+      },
+      // Closing without saving
+      cancel() {
+        this.animatePanel().then(()=>this.$emit('cancel'));
+      },
+      // Flatten the row so it's easier to edit
       serializeRow(row) {
         const serializedRow = {};
         for (const i in this.columns) {
@@ -50,6 +74,7 @@
         }
         return serializedRow;
       },
+      // Rebuild the original row to edit the table
       deserializeRow(serializedRow) {
         const row = {...this.row};
         for (const i in this.columns) {

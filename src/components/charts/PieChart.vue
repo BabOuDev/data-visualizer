@@ -31,6 +31,7 @@
     },
     emits: ['updateFilter'],
     computed: {
+      // Group data by key
       aggregatedData() {
         return Object.entries(
           this.rows
@@ -40,14 +41,17 @@
             }, {}),
         ).map((a)=>({key: a[0], value: a[1]}));
       },
+      // List all keys
       keys() {
         return this.aggregatedData.map((d)=>d.key);
       },
+      // Number of groups
       datasetsNumber() {
         return this.aggregatedData.length;
       },
     },
     methods: {
+      // Generate the style object for each slice
       styleForSlice(slice, index, secondHalf) {
         const range = (slice.value / this.rows.length * 360);
         const start = this.aggregatedData.slice(0, index).reduce((acc, slice)=>acc+(slice.value / this.rows.length * 360), 0) + ( secondHalf ? range-180 : 0);
@@ -55,6 +59,7 @@
           'transform': 'rotate('+start+'deg)',
         };
       },
+      // Generate the style object for each inner slice
       styleForInnerSlice(slice, index) {
         const range = Math.min(180, (slice.value / this.rows.length * 360));
         return {
@@ -62,6 +67,7 @@
           'transform': 'rotate('+range+'deg)',
         };
       },
+      // Check if the slice is more than 50%
       over50(slice) {
         const isOver50 = (slice.value / this.rows.length ) > 0.5;
         return isOver50;

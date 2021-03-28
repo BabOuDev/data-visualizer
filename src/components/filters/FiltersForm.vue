@@ -38,16 +38,21 @@
       },
     },
     methods: {
+      // When a filter is added from the form
       addFilter() {
+        // Check if there is already a filter for the same column
         const columnIsAlreadyFiltered = this.value.findIndex((f)=>f.column === this.filterColumn.label);
         if (columnIsAlreadyFiltered >= 0) {
+          // If it is the case, check if there is already a filter with the same value
           if (!this.value[columnIsAlreadyFiltered].values.includes(this.filterValue)) {
             this.value[columnIsAlreadyFiltered].values.push(this.filterValue);
           }
         } else {
+          // Else, create a new filter
           this.value.push({column: this.filterColumn.label, path: this.filterColumn.path, values: [this.filterValue]});
         }
       },
+      // When a new column is selected, reset the value
       updateColumn() {
         this.filterValue = null;
       },

@@ -74,16 +74,19 @@
     emits: ['update:modelValue'],
 
     methods: {
+      // Open the side panel to edit data
       openPanel(row) {
         this.panelVisible = true;
         this.rowToEdit = row;
       },
+      // Save the edited value into the list
       saveRow(rowItem) {
         const list = this.modelValue;
         list[list.findIndex((i)=>i.id === rowItem.id)] = rowItem;
         this.$emit('update:modelValue', list);
         this.panelVisible = false;
       },
+      // Register new filters
       addFilter({col, value}) {
         this.enableFilter = true;
         const columnIsAlreadyFiltered = this.filters.findIndex((f)=>f.column === col.label);
@@ -95,15 +98,19 @@
           this.filters.push({column: col.label, path: col.path, values: [value]});
         }
       },
+      // Reset all filters
       resetFilters() {
         this.filters = [];
       },
+      // Highlight one row only
       highlightRow(row) {
         this.search = row.firstname + ' ' + row.lastname;
       },
+      // Reset row highlighting
       resetHighlighting() {
         this.search = '';
       },
+      // Export edited data with applied filters
       exportData() {
         const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.filteredPeople, 2, 2));
         const dlAnchorElem = document.getElementById('downloadAnchorElem');

@@ -45,6 +45,7 @@
       },
     },
     methods: {
+      // Generate the style object for positioning each pin on the map
       styleForPin(pin) {
         const left = ((pin.contact.location.lon + 180) / 360 * this.mapWidth );
         const top = this.mapHeight - ((pin.contact.location.lat + 90) / 180 * this.mapHeight);
@@ -53,11 +54,13 @@
           'top': top + 'px',
         };
       },
+      // Highlight a pin
       selectPin(id) {
         this.higlighted = true;
         const row = this.rows.find((r)=>r.id === id);
         this.$emit('selectRow', row);
       },
+      // Reset highlighting
       resetPinSelection() {
         this.higlighted = false;
         this.$emit('resetRow');

@@ -29,6 +29,7 @@
       },
     },
     methods: {
+      // Remove a filter from the list
       removeFilter(index) {
         this.value.splice(index, 1);
       },

@@ -50,29 +50,30 @@
     ],
     data() {
       return {
-        // Nombre d'éléments dans une page
         pageLimit: 10,
-        // Indicateur de début de page
         pageOffset: 0,
       };
     },
     computed: {
-      // Nombre total d'éléments
+      // Total number of items in the list
       totalNumberOfRows() {
         return this.rows.length;
       },
-      // Les données de la page courante
+      // The rows to display on the current page
       rowsForCurrentPage() {
         return this.sortedPeople.slice(this.pageOffset, this.pageOffset + this.pageLimit);
       },
     },
     methods: {
+      // The current page is changed
       changePage(page) {
         this.pageOffset = page*this.pageLimit;
       },
+      // The tool function to access value using dotted path
       findValueAtPath: Tools.findValueAtPath,
     },
     watch: {
+      // Watching the rows, and every time it's updated, go back to the first page.
       rows: {
         handler() {
           this.pageOffset = 0;

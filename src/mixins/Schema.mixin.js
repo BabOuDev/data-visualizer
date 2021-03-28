@@ -3,6 +3,7 @@ import Tools from '@/services/Tools';
 export default {
   data() {
     return {
+      // List the data columns and their specific behavior for each
       schema: [
         {
           label: 'Name',
@@ -144,12 +145,15 @@ export default {
     };
   },
   computed: {
+    // The list of columns to filter on
     columnsToFilterOn() {
       return this.schema.filter((c)=>c.filter);
     },
+    // The list of editable columns
     columnsToEdit() {
       return this.schema.filter((c)=>c.edit);
     },
+    // The list of columns to be displayed in the table
     columnsToDisplay() {
       return this.schema.filter((c)=>c.display).map((c)=>({
         ...c,
@@ -157,11 +161,13 @@ export default {
         path: c.path instanceof Array ? c.path : [c.path],
       }));
     },
+    // The list of column to display charts for
     columnsToChart() {
       return this.schema.filter((c)=>c.chart);
     },
   },
   methods: {
+    // Function used by the favorite color renderer to display colored squres
     getColorStyle(color) {
       return ''+
         'background-color:'+ color +'; ' +
