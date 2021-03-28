@@ -59,7 +59,7 @@
 
 .filter-form {
   display:inline-block;
-  margin-right: 20px;
+  margin-left: 20px;
 }
 
 label {

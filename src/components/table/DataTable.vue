@@ -1,23 +1,25 @@
 <template>
 
-  <table>
-    <thead>
-      <tr>
-        <th v-for="col in columns" :key="col.label" :style="{'max-width':col.width + 'px'}">
-          {{ col.label }}
-          <div class="sorting-caret" @click="sortBy(col)">
-            <span class="caret sort-by-asc" :class="{active: sortingColumn === col.label && sortingAsc}"></span>
-            <span class="caret sort-by-desc" :class="{active: sortingColumn === col.label && !sortingAsc}"></span>
-          </div>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="row in rowsForCurrentPage" v-bind:key="row.id" @click="$emit('row-selected', row)">
-        <td v-for="col in columns" :key="col.label" v-html="col.renderer(row, col.path.map((p) => findValueAtPath(row, p)))" :style="{'max-width':col.width + 'px'}"></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th v-for="col in columns" :key="col.label" :style="{'max-width':col.width + 'px'}">
+            {{ col.label }}
+            <div class="sorting-caret" @click="sortBy(col)">
+              <span class="caret sort-by-asc" :class="{active: sortingColumn === col.label && sortingAsc}"></span>
+              <span class="caret sort-by-desc" :class="{active: sortingColumn === col.label && !sortingAsc}"></span>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="row in rowsForCurrentPage" v-bind:key="row.id" @click="$emit('row-selected', row)">
+          <td v-for="col in columns" :key="col.label" v-html="col.renderer(row, col.path.map((p) => findValueAtPath(row, p)))" :style="{'max-width':col.width + 'px'}"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <label class="info-label" v-if="rowsForCurrentPage.length === 0">No data for current filters</label>
 
@@ -82,6 +84,11 @@
 </script>
 
 <style scoped>
+
+  .table-container {
+    min-width: 760px;
+    overflow-x: auto;
+  }
 
   table {
     font-family: Arial, Helvetica, sans-serif;

@@ -3,22 +3,19 @@
     <div class="search-container">
       <label for="search">Search: </label>
       <input id="search" class="search-input" type="text" v-model="search" placeholder="Search..."/>
+      <button id="export" @click="exportData">Export to JSON</button>
     </div>
     <div class="filter-switch-container">
       <label>Filters: </label>
       <Switch class="filter-switch" v-model="enableFilter" />
+      <FiltersForm v-if="enableFilter" v-model="filters" :columns="columnsToFilterOn" @resetFilters="resetFilters"/>
     </div>
-    <FiltersForm v-if="enableFilter" v-model="filters" :columns="columnsToFilterOn" @resetFilters="resetFilters"/>
-    <button id="export" @click="exportData">Export to JSON</button>
     <a id="downloadAnchorElem"/>
     <FiltersList v-if="enableFilter" v-model="filters" @resetFilters="resetFilters"/>
     <br/>
   </div>
 
-  <div class="row">
-  </div>
-
-  <div class="half-row">
+  <div class="half-row left">
     <ChartWrapper v-for="col in columnsToChart" :key="col.label" :rows="filteredPeople" :col="col" @updateFilter="addFilter"/>
   </div>
 
@@ -124,24 +121,35 @@
     width: 100%;
     display:block;
     margin-bottom: 20px;
+    clear: both;
   }
 
-  .half-row {
-    width: 50%;
-    min-width: 750px;
+  .half-row.left {
+    max-width: 740px;
     display: inline-block;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    float:left;
   }
-  .half-row.right{
+
+  .half-row.right {
+    min-width:800px;
     float:right;
   }
 
+  @media (max-width: 1590px) {
+    .half-row.right{
+      float:left;
+    }
+  }
+
   .form {
-    padding: 20px;
+    padding: 15px 20px 0px;
     margin-top: -10px;
     margin-left: -10px;
+    min-height: 63px;
     width: calc(100% - 22px);
     background-color: var(--color-2);
+    box-shadow: 1px 0px 5px black;
   }
 
   label {

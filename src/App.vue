@@ -35,7 +35,12 @@
 <style>
 
   body {
+    --border-radius: 8px;
     background: radial-gradient(circle, var(--color-1-alpha) 0%, var(--color-2-alpha) 70%);
+  }
+
+  button, input, select, label {
+    border-radius:var(--border-radius);
   }
 
 </style>

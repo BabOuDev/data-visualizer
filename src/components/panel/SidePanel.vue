@@ -1,6 +1,6 @@
 <template>
 
-  <div class="side-panel">
+  <div class="side-panel" :class="{'panel-open': panelIsOpened}" :style="{'--transition-time': 'all ease '+animationTime+'s'}">
     <div class="input-row" v-for="field in columns" :key="field.label">
       <label class="input-label" :for="field.label">{{field.label}}</label>
       <template v-if="field.type === 'text'">
@@ -16,7 +16,7 @@
       </template>
     </div>
     <button id="save-button" @click="save">Save</button>
-    <a id="cancel-button" @click="$emit('cancel')">Cancel</a>
+    <a id="cancel-button" @click="cancel">Cancel</a>
   </div>
 
 </template>
@@ -58,27 +58,47 @@
         return row;
       },
     },
+    mounted() {
+      this.animatePanel(true);
+    },
   };
 </script>
 
 <style scoped>
 
-  input:invalid
-  {
+  input:invalid {
     border-color:red;
   }
 
-  .side-panel{
+  .side-panel {
     position:fixed;
     z-index: 2;
     overflow-y:auto;
-    right: 0;
+    right: -550px;
     top: 0;
     height: calc(100% - 120px);
     width: 550px;
     background-color:white;
     box-shadow: 1px 0px 10px black;
     padding: 60px 20px;
+    transition: var(--transition-time);
+    background-color: white;
+  }
+
+  .side-panel::before{
+    z-index:-1;
+    content: ' ';
+    position:absolute;
+    width:100%;
+    height:100%;
+    min-height:700px;
+    top:0;
+    left:0;
+    background: radial-gradient(circle, var(--color-1-alpha) 0%, var(--color-2-alpha) 70%);
+  }
+
+  .panel-open {
+    right: 0;
   }
 
   .input-row{

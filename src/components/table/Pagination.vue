@@ -119,7 +119,7 @@
 ul {
   display: block;
   text-align: center;
-  width: calc(100% - 400px);
+  width: calc(100% - 420px);
   float:left;
   margin-top: 0;
   margin-bottom: 0;
@@ -130,7 +130,7 @@ li {
   margin: 2px;
   width: 30px;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius:var(--border-radius);
   padding: 1px;
   user-select: none;
   text-align: center;
@@ -153,7 +153,7 @@ li:hover {
 
 .items-by-page {
   float:left;
-  width: 180px;
+  width: 190px;
 }
 select{
   width: 60px;
@@ -164,7 +164,7 @@ select{
   background-color:white;
 }
 .pagination-summary {
-  width: 180px;
+  width: 190px;
   float:right;
 }
 </style>

@@ -50,7 +50,10 @@
     width: 300px;
     height: 150px;
     padding-left:50px;
-    margin: 20px;
+    margin: 5px 10px;
+    border-radius: 20px;
+    padding: 20px 0 30px 50px;
+    background-color: rgba(0,0,0,0.05);
   }
 
   .chart-container {

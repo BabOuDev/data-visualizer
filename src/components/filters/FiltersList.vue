@@ -63,7 +63,7 @@ label {
 .remove-button{
   position: absolute;
   display: none;
-  top: 4px;
+  top: 6px;
   right: 5px;
   height: 18px;
   width: 18px;
