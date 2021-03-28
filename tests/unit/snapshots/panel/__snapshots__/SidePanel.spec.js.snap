@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SidePanel.vue should renders correctly 1`] = `
-<div class="side-panel">
+<div class="side-panel" style="--transition-time: all ease 0.3s;">
   <div class="input-row"><label class="input-label" for="Col1">Col1</label><input class="input-content" name="Col1" type="text" required=""></div>
   <div class="input-row"><label class="input-label" for="Col2">Col2</label><select class="input-content" name="Col2">
       <option>B1</option>

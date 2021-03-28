@@ -1,24 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DataTable.vue should renders correctly 1`] = `
-<table>
-  <thead>
-    <tr>
-      <th style="max-width: undefinedpx;">ColName <div class="sorting-caret"><span class="caret sort-by-asc"></span><span class="caret sort-by-desc"></span></div>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="max-width: undefinedpx;"></td>
-    </tr>
-    <tr>
-      <td style="max-width: undefinedpx;"></td>
-    </tr>
-    <tr>
-      <td style="max-width: undefinedpx;"></td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th style="max-width: undefinedpx;">ColName <div class="sorting-caret"><span class="caret sort-by-asc"></span><span class="caret sort-by-desc"></span></div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="max-width: undefinedpx;"></td>
+      </tr>
+      <tr>
+        <td style="max-width: undefinedpx;"></td>
+      </tr>
+      <tr>
+        <td style="max-width: undefinedpx;"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 <pagination-stub total="3" limit="10" offset="0"></pagination-stub>
 `;

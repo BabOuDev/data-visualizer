@@ -3,14 +3,14 @@
 exports[`WorldMap.vue should renders correctly 1`] = `
 <div class="map-container background">
   <div class="map"></div>
-  <div style="left: 0px; top: 390px;" class="pin" title="undefined undefined"></div>
-  <div style="left: 0px; top: 195px;" class="pin" title="undefined undefined"></div>
+  <div style="left: 0px; top: 412px;" class="pin" title="undefined undefined"></div>
+  <div style="left: 0px; top: 206px;" class="pin" title="undefined undefined"></div>
   <div style="left: 0px; top: 0px;" class="pin" title="undefined undefined"></div>
-  <div style="left: 400px; top: 390px;" class="pin" title="undefined undefined"></div>
-  <div style="left: 400px; top: 195px;" class="pin" title="undefined undefined"></div>
+  <div style="left: 400px; top: 412px;" class="pin" title="undefined undefined"></div>
+  <div style="left: 400px; top: 206px;" class="pin" title="undefined undefined"></div>
   <div style="left: 400px; top: 0px;" class="pin" title="undefined undefined"></div>
-  <div style="left: 800px; top: 390px;" class="pin" title="undefined undefined"></div>
-  <div style="left: 800px; top: 195px;" class="pin" title="undefined undefined"></div>
+  <div style="left: 800px; top: 412px;" class="pin" title="undefined undefined"></div>
+  <div style="left: 800px; top: 206px;" class="pin" title="undefined undefined"></div>
   <div style="left: 800px; top: 0px;" class="pin" title="undefined undefined"></div>
   <!--v-if-->
 </div>
