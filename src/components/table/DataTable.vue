@@ -179,5 +179,6 @@
     background: transparent;
     border-top: solid 7px var(--color-1);
     border-bottom-width: 0;
+    float: left;
   }
 </style>
