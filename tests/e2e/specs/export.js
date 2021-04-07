@@ -1,5 +1,5 @@
 
-describe('Edit', () => {
+describe('Export', () => {
   before('Visits the app root url', () => {
     cy.visit('/');
   });
